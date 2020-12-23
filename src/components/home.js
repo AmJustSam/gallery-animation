@@ -17,6 +17,7 @@ const Container = styled(motion.div)`
       height: 150px;
       object-fit: cover;
       border-radius: 20px;
+      box-shadow: 0 0 10px 0 #111;
       cursor: zoom-in;
     }
   }
@@ -30,18 +31,28 @@ const Home = () => (
   <Container>
     <Link to={{pathname: "/display", state: {id: "a", src: "https://bit.ly/3nNkgEE"}}}>
       <motion.img
-          transition={{duration: 0.3}}
+          transition={{duration: 0.2}}
       layoutId="a" src="https://bit.ly/3nNkgEE" />
     </Link>
-    <Link to={{pathname: "/display", state: {id: "b", src: "https://bit.ly/38s9MUQ"}}}>
+    <Link to={{pathname: "/display", state: {id: "b", src: "https://bit.ly/2Kmxv0U"}}}>
       <motion.img
-          transition={{duration: 0.3}}
-      layoutId="b" src="https://bit.ly/38s9MUQ" />
+          transition={{duration: 0.2}}
+      layoutId="b" src="https://bit.ly/2Kmxv0U" />
     </Link>
     <Link to={{pathname: "/display", state: {id: "c", src: "https://bit.ly/2KNiKnt"}}}>
       <motion.img
-          transition={{duration: 0.3}}
+          transition={{duration: 0.2}}
       layoutId="c" src="https://bit.ly/2KNiKnt" />
+    </Link>
+    <Link to={{pathname: "/display", state: {id: "d", src: "https://bit.ly/34GiQV3"}}}>
+      <motion.img
+          transition={{duration: 0.2}}
+      layoutId="d" src="https://bit.ly/34GiQV3" />
+    </Link>
+    <Link to={{pathname: "/display", state: {id: "e", src: "https://bit.ly/3pis3uv"}}}>
+      <motion.img
+          transition={{duration: 0.2}}
+      layoutId="e" src="https://bit.ly/3pis3uv" />
     </Link>
   </Container>
 )
