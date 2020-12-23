@@ -1,22 +1,19 @@
 import React from "react";
-import {motion} from "framer-motion";
-import styled from "styled-components";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import {motion, AnimateSharedLayout} from "framer-motion";
 
-const Container = styled(motion.div)`
-   display: flex;
-   justify-content: center;
-   align-items: center;
-`;
+import Home from "./components/home";
+import Display from "./components/display";
 
-const App = () => {
- return(
-    <Container>
-      <form action="#">
-        <input type="text"/>
-        <input type="password"/>
-      </form>
-    </Container>
-  )
-};
+function App() {
+  return (
+    <AnimateSharedLayout>
+          <Router>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/display" component={Display} />          
+          </Router>
+    </AnimateSharedLayout>
+  );
+}
 
 export default App;
