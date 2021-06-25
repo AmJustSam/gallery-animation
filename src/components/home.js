@@ -1,60 +1,72 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import {motion} from "framer-motion";
-import {Link} from "react-router-dom";
+import {motion, useSpring} from "framer-motion";
+import {Link, useLocation} from "react-router-dom";
+
+const data = [
+  {id: "a", src: "https://bit.ly/3nNkgEE"},
+  {id: "b", src: "https://bit.ly/2Kmxv0U"},
+  {id: "c", src: "https://bit.ly/2KNiKnt"},
+  {id: "d", src: "https://bit.ly/34GiQV3"},
+  {id: "e", src: "https://bit.ly/3pis3uv"},
+]
 
 const Container = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px 0;
+  height: 100%;
 
-  a {
-    margin-right: 20px;
-
-    img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 0 10px 0 #111;
-      cursor: zoom-in;
-    }
-  }
   
-  a:last-of-type: {
-    margin-right: 0;
-  }
+  > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    
+   img {
+        width: 100%;
+        border-radius: 20px;
+        box-shadow: 0 0 10px 0 #111;
+        cursor: zoom-in;
+        object-fit: cover;
+      }  
+   }  
 `;
 
-const Home = () => (
-  <Container>
-    <Link to={{pathname: "/display", state: {id: "a", src: "https://bit.ly/3nNkgEE"}}}>
-      <motion.img
-          transition={{duration: 0.2}}
-      layoutId="a" src="https://bit.ly/3nNkgEE" />
-    </Link>
-    <Link to={{pathname: "/display", state: {id: "b", src: "https://bit.ly/2Kmxv0U"}}}>
-      <motion.img
-          transition={{duration: 0.2}}
-      layoutId="b" src="https://bit.ly/2Kmxv0U" />
-    </Link>
-    <Link to={{pathname: "/display", state: {id: "c", src: "https://bit.ly/2KNiKnt"}}}>
-      <motion.img
-          transition={{duration: 0.2}}
-      layoutId="c" src="https://bit.ly/2KNiKnt" />
-    </Link>
-    <Link to={{pathname: "/display", state: {id: "d", src: "https://bit.ly/34GiQV3"}}}>
-      <motion.img
-          transition={{duration: 0.2}}
-      layoutId="d" src="https://bit.ly/34GiQV3" />
-    </Link>
-    <Link to={{pathname: "/display", state: {id: "e", src: "https://bit.ly/3pis3uv"}}}>
-      <motion.img
-          transition={{duration: 0.2}}
-      layoutId="e" src="https://bit.ly/3pis3uv" />
-    </Link>
-  </Container>
-)
+const Home = () => {
+  const location = useLocation();
+  const [dimensions, setDimensions] = useState([]);
+  const Img = useRef();
+
+  useEffect(() => {
+     const width = Img.current.naturalWidth;
+     const height = Img.current.naturalHeight;
+     
+     setDimensions({width, height})
+
+  }, [])
+
+  return (
+    <Container>
+       {location && 
+         <motion.div
+           initial={ location.search.includes("switch=true") ? false : {opacity: 0}}
+           animate={{opacity: 1}}
+           transition={{duration: 1, delay: 1}}
+         >
+           {data && data.map((obj) => (
+             <Link to={{pathname: "/display", state: obj}}>
+               <motion.img ref={(elm) => Img.current = elm} transition={{duration: 0.2}} layoutId={obj.id} src={obj.src} />
+             </Link>
+           ))}
+         </motion.div>
+       }
+    </Container>
+ )
+}
 
 export default Home;

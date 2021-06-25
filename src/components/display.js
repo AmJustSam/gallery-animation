@@ -12,8 +12,10 @@ const Wrapper = styled(motion.div)`
   cursor: zoom-out;
   
   img {
-     width: 550px;
-     height: 550px;
+     width: 100%;
+     max-width: 500px;
+     min-height: 500px;
+     max-height: 500px;
      margin: 0 10px;
      border-radius: 20px;
      object-fit: cover;
@@ -25,6 +27,8 @@ const Wrapper = styled(motion.div)`
 const Display = () => {
   const location = useLocation();
   const history = useHistory();
+
+  console.log(location);
 
   useEffect(() => {
     document.body.addEventListener("keydown", handleKeypress);
@@ -44,13 +48,13 @@ const Display = () => {
   const handleClick = (e) => {
     console.log(e.target);
     if(!e.target.classList.contains("image")) {
-      history.push("/")
+      history.push("/?switch=true");
     }
   }
   
   return(
     <Wrapper onClick={handleClick} className="bg">
-      <Link to="/" style={{color: "#ccc", padding: "20px", textDecoration: "none", position: "absolute", top: "30px", left: "30px"}}>&larr; Go Back</Link>
+      <Link to={{pathname: `/`, search: "switch=true"}} style={{color: "#ccc", padding: "20px", textDecoration: "none", position: "absolute", top: "30px", left: "30px"}}>&larr; Go Back</Link>
       {location.state ? 
         <motion.img className="image"
           transition={{duration: 0.2}}
